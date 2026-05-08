@@ -1,6 +1,5 @@
 import requests
-
-BASE_URL = "https://jsonplaceholder.typicode.com"
+from config import BASE_URL
 
 TEST_USER = {
     "name": "Irina",
@@ -12,24 +11,18 @@ UPDATED_USER = {
 }
 
 
-def test_get_user_status_code():
-    response = requests.get(f"{BASE_URL}/users/1")
-
-    assert response.status_code == 200
+def test_get_user_status_code(user_response):
+    assert user_response.status_code == 200
 
 
-def test_get_user_id():
-    response = requests.get(f"{BASE_URL}/users/1")
-
-    data = response.json()
+def test_get_user_id(user_response):
+    data = user_response.json()
 
     assert data['id'] == 1
 
 
-def test_get_user_has_name():
-    response = requests.get(f"{BASE_URL}/users/1")
-
-    data = response.json()
+def test_get_user_has_name(user_response):
+    data = user_response.json()
 
     assert 'name' in data
 
@@ -59,9 +52,8 @@ def test_create_user_check_job():
     assert data['job'] == TEST_USER['job']
 
 
-
 def test_update_user_job():
-    response = requests.put(f"{BASE_URL}/users/1",json=UPDATED_USER)
+    response = requests.put(f"{BASE_URL}/users/1", json=UPDATED_USER)
     data = response.json()
-    assert response.status_code==200
+    assert response.status_code == 200
     assert data['job'] == UPDATED_USER['job']
