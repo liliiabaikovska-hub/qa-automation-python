@@ -19,6 +19,7 @@ def test_age_boundary():
     assert check_age(18) == "Access granted"
 
 
+
 def test_status_200():
     assert check_status(200) == 'OK'
 
